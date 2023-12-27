@@ -52,6 +52,19 @@ async function run() {
             const result = await allTaskList.deleteOne(query);
             res.send(result);
         })
+        app.patch('/v1/api/taskList', async (req, res) => {
+            const id = req.query.id;
+            const updatedStatus = req.query.status
+            
+            const filter = { _id:new ObjectId(id) };
+            const updatedDoc = {
+                $set: {
+                    status: updatedStatus
+                }
+            }
+            const result = await allTaskList.updateOne(filter, updatedDoc)
+            res.send(result);
+        })
 
         
 
